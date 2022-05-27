@@ -1,5 +1,9 @@
 # webserver  + restserver 
 
-Rest server básico que posteriormente se va ir agregando funcionalidades que hagan la aplicación más robusta.
+Rest server. CRUD completo 
 
-Recordar de ejecutar ```npm install ``` para reconstruir los módulos de Node
+# Method GET/POST/PUT/DELETE
+
+Base de datos no relacional MongoDB
+
+Recordar de ejecutar ```npminstall ``` para reconstruir los módulos de Node
