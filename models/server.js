@@ -1,5 +1,6 @@
 const express=require("express")
 const cors=require("cors")
+const {dbConn}=require("../database/config")
 //patron singleton
 class Server{
 
@@ -7,12 +8,19 @@ class Server{
         this.app=express();
         this.port=process.env.PORT;
         this.userRoute="/user"
-        
+        //Conectar a base de datos 
+        this.connectDb();
         //Middlewares
         this.middlewares();//primero los middleware y luego las rutas
         //Rutas
         this.routes();
     }
+
+    async connectDb(){
+        await dbConn();
+    }
+
+
     middlewares(){
 
         //cors
@@ -34,5 +42,7 @@ class Server{
         });
     }
 }
+
+
 
 module.exports=Server
