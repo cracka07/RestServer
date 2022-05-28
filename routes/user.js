@@ -5,6 +5,8 @@ const {check}=require("express-validator")
 const {validarCampos}=require("../middleware/validar-campos")
 const {userGet,userPost,userPut,userDelete}=require("../controllers/users");
 const { esRolValido, emailExiste, existeUserId } = require("../helpers/db-validators");
+const { privateJWT } = require("../middleware/ruta-private"); //sólo el admin tiene acceso
+const { esAdminRole, tieneRol } = require("../middleware/validar-roles");
 
 const router=Router();
 
@@ -32,6 +34,9 @@ router.put("/:id",[
     validarCampos
 ],userPut);
 router.delete("/:id",[
+    privateJWT,
+   esAdminRole, //fuerza a que tenga que ser administrador
+  // tieneRol("ADMIN_ROLE","VENTAS_ROLE","OTRO_ROLE"),
     check("id","No es un id válido").isMongoId(),
     check("id").custom(existeUserId),
     validarCampos

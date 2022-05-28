@@ -1,6 +1,10 @@
 const {Schema,model}=require("mongoose");
 
 const UsuarioSchema=Schema({
+
+    uid:{
+        type:String
+    },
     nombre:{
         type:String,
         required:[true,"El nombre es requerido"]
@@ -32,8 +36,9 @@ const UsuarioSchema=Schema({
     }
 })
 UsuarioSchema.methods.toJSON=function(){
-    const{__v,password,...usuario}=this.toObject(); //referencia al objeto usuario
+    const{__v,password,_id,...usuario}=this.toObject(); //referencia al objeto usuario
     //destructuring de los atributos que quiero sacar y guardarlos en usuarios
+    usuario.uid=_id
     return usuario
 }
 

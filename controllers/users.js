@@ -11,6 +11,8 @@ const userGet=async(req,res=response)=>{
     // const {edad,altura="no name"}=req.query
     const { limite=5,desde=0 }=req.query  //paginar de 5 en 5, obtengo 5 registros
     const filtro= {estado:true}
+    
+
   //Las promesas.all se ejecutan de manera simultanea.
   //Si da error una promesa , la otra no se ejecuta.  
     
@@ -18,8 +20,9 @@ const userGet=async(req,res=response)=>{
    const [total,usuarios]=await Promise.all([
     Usuario.countDocuments(filtro), //conteo registro total
     Usuario.find(filtro)    //filtrado
+     .sort({nombre:"desc"}) //ordenamiento
     .skip(Number(desde))    //desde
-    .limit(Number(limite)) // limite 
+    .limit(Number(limite)) // limite  //paginado
    ])
 
     res.json({
@@ -70,16 +73,17 @@ const userPut=async(req,res=response)=>{
 const userDelete=async(req,res=response)=>{
 
     const {id}=req.params
-
+    
     // //Fisicamente lo  borramos es una alternativa
     // const usuario=await Usuario.findByIdAndDelete(id)
 
     //Actualizamos el id y establecemos el estado=false
     const usuario=await Usuario.findByIdAndUpdate(id, {estado:false},{new:true})
-    
+    // const userAutenticado=req.usuario
 
     res.json({
-        usuario
+      usuario
+        
     })
 }
 

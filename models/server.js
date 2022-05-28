@@ -8,6 +8,7 @@ class Server{
         this.app=express();
         this.port=process.env.PORT;
         this.userRoute="/user"
+        this.userAuth="/user/auth"
         //Conectar a base de datos 
         this.connectDb();
         //Middlewares
@@ -33,6 +34,7 @@ class Server{
 
     //rutas
     routes(){ 
+       this.app.use(this.userAuth,require("../routes/auth"))
        this.app.use(this.userRoute, require("../routes/user"))
     }
     //listen on port
