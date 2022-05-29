@@ -78,9 +78,9 @@ const googleSignIn=async(req,res=response)=>{
             })
 
     }catch(e){
-        json.status(400).json({
+        res.status(400).json({
             ok:false,
-            msg:"El token no se pudo verificar"
+            msg:"El token no es válido"
         })
     }
 
