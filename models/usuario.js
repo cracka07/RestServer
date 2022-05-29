@@ -2,9 +2,7 @@ const {Schema,model}=require("mongoose");
 
 const UsuarioSchema=Schema({
 
-    uid:{
-        type:String
-    },
+
     nombre:{
         type:String,
         required:[true,"El nombre es requerido"]
@@ -24,6 +22,7 @@ const UsuarioSchema=Schema({
     rol:{
         type:String,
         required:true,
+        default:"USER_ROLE"
         // enum:["ADMIN_ROLE","USER_ROLE"]
     },
     estado:{
@@ -32,7 +31,7 @@ const UsuarioSchema=Schema({
     },
     google:{
         type:Boolean,
-        default:true
+        default:false
     }
 })
 UsuarioSchema.methods.toJSON=function(){
