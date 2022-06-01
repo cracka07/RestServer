@@ -7,8 +7,15 @@ class Server{
     constructor() {
         this.app=express();
         this.port=process.env.PORT;
-        this.userRoute="/user"
-        this.userAuth="/user/auth"
+        this.path={
+            auth: "/user/auth",
+            buscar:"/user/buscar",
+            categorias:"/user/categorias",
+            productos:"/user/productos",
+            usuario:"/user",
+        }
+    
+
         //Conectar a base de datos 
         this.connectDb();
         //Middlewares
@@ -34,8 +41,11 @@ class Server{
 
     //rutas
     routes(){ 
-       this.app.use(this.userAuth,require("../routes/auth"))
-       this.app.use(this.userRoute, require("../routes/user"))
+       this.app.use(this.path.auth,require("../routes/auth"))
+       this.app.use(this.path.usuario, require("../routes/user"))
+       this.app.use(this.path.categorias, require("../routes/categorias"))
+       this.app.use(this.path.productos, require("../routes/productos"))
+       this.app.use(this.path.buscar,require("../routes/buscar"))
     }
     //listen on port
     listen(){

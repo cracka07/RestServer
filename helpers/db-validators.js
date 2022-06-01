@@ -1,6 +1,8 @@
-const {response}=require("express")
+const {response}=require("express");
+const Categoria = require("../models/categoria");
 const Role=require("../models/role");
 const usuario = require("../models/usuario");
+const Producto=require("../models/producto")
 
 const esRolValido=async(rol="")=>{
 
@@ -24,10 +26,24 @@ const existeUserId=async(id)=>{
         }
    
 }
+const existeCategoria=async(id)=>{
+        const existeCategoria=await Categoria.findById(id)
+        if(!existeCategoria){
+            throw new Error(`El id ${id} no existe`)
+        }
+}
+const existeProducto=async(id)=>{
+    const existeProducto=await Producto.findById(id)
+    if(!existeProducto){
+        throw new Error(`El id ${id} no existe`)
+    }
+}
 
 
 module.exports={
     esRolValido,
     emailExiste,
-    existeUserId
+    existeUserId,
+    existeCategoria,
+    existeProducto
 }
